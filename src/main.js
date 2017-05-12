@@ -11,6 +11,9 @@ import App from './views/App.vue'
 import ApplicationList from './views/ApplicationList.vue'
 import ApplicationDashboard from './views/ApplicationDashboard.vue'
 import FormNewNotification from './views/FormNewNotification.vue'
+import UserList from './views/UserList.vue'
+import FormEditUser from './views/FormEditUser.vue'
+import FormNewUser from './views/FormNewUser.vue'
 //import Signup from './components/Signup.vue'
 import Login from './views/Login.vue'
 
@@ -36,6 +39,9 @@ const routes = [
 	{ path: '/applications', component: ApplicationList },
 	{ path: '/applications/:applicationSlug/new-notification', component: FormNewNotification },
 	{ path: '/applications/:applicationSlug', component: ApplicationDashboard },
+	{ path: '/users', component: UserList },
+	{ path: '/users/new', component: FormNewUser },
+	{ path: '/users/:userId', component: FormEditUser },
 	{ path: '/login', component: Login }
 ]
 

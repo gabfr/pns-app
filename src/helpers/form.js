@@ -48,6 +48,14 @@ export default class Form {
         this.errors.clear();
     }
 
+    resetData(data) {
+        this.originalData = data;
+
+        for (let field in data) {
+            this[field] = data[field];
+        }
+    }
+
 
     /**
      * Send a POST request to the given URL.

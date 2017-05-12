@@ -6,15 +6,17 @@
       
       <application-item :model="app.data"></application-item>
 
-      <h2>Notificações</h2>
+      <div class="level">
+        <div class="level-left"><h2>Notificações</h2></div>
+        <div class="level-right">
+          <router-link :to="'/applications/' + app.data.slug + '/new-notification'" class="button is-small is-primary">
+            Criar notificação
+          </router-link>
+        </div>
+      </div>
 
-      <p class="has-text-right">
-        <router-link :to="'/applications/' + app.data.slug + '/new-notification'" class="button is-small is-primary">
-          Criar notificação
-        </router-link>
-      </p>
-      
       <notification-list-item v-for="notification in app.notifications.data" :model="notification" @delete="removeFromNotificationList(notification)"></notification-list-item>
+      
     </div>
   </div>
 </template>
