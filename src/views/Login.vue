@@ -57,7 +57,6 @@ export default {
         email: this.credentials.email,
         password: this.credentials.password
       }
-      console.log(this.$http);
       auth.login(this, credentials, 'secretquote')
     },
     dismissErrors() {

@@ -1,22 +1,16 @@
 <template>
-  <div class="box">
-    <article class="media">
-      <div class="content">
-        <div class="columns">
-          <div class="column is-12" v-if="error">
-            <error-msg :msg="error" @close="error = ''"></error-msg>
-          </div>
-          <div class="column is-8">
-            <p><strong>{{notification.title}}</strong></p>
-            <p>{{notification.alert_message}}</p>
-          </div>
-          <div class="column is-4">
-            <a class="button is-success" :class="btnSendState" @click="onClickSendNotification">Enviar</a>
-            <a class="button is-danger" :class="btnDeleteState" @click="onClickDelete">Excluir</a>
-          </div>
-        </div>
-      </div>
-    </article>
+  <div class="card">
+    <header class="card-header">
+      <p class="card-header-title">{{ notification.title }}</p>
+    </header>
+    <div class="card-content">
+      <div class="content">{{ notification.alert_message }}</div>
+      <error-msg v-if="error" :msg="error" @close="error = ''"></error-msg>
+    </div>
+    <footer class="card-footer">
+      <a href="javascript:void(0);" :class="btnSendState" @click="onClickSendNotification" class="card-footer-item button is-primary is-small">Enviar</a>
+      <a href="javascript:void(0);" :class="btnDeleteState" @click="onClickDelete" class="card-footer-item button is-danger is-small">Excluir</a>
+    </footer>
   </div>
 </template>
 
@@ -40,25 +34,32 @@ export default {
   methods: {
     onClickSendNotification() {
       this.btnSendState = 'is-loading';
-      this.$http.post(`${configs.API_URL}/applications/${this.notification.application_id}/notifications/${this.notification.id}/send`)
+      this.$http.post(`applications/${this.notification.application_id}/notifications/${this.notification.id}/send`)
         .then((response) => {
           this.$emit('sent');
           this.btnSendState = '';
+          this.$swal({title:'Enviado!', text: 'Notificação disparada para os dispositivos registrados!'});
         }, (err) => {
           this.error = err.body.message;
           this.btnSendState = ''
         })
     },
     onClickDelete() {
-      this.btnDeleteState = 'is-loading';
-      this.$http.delete(`${configs.API_URL}/applications/${this.notification.application_id}/notifications/${this.notification.id}`)
-        .then((response) => {
-          this.$emit('delete');
-          this.btnDeleteState = ''
-        }, (err) => {
-          this.error = err.body.message
-          this.btnDeleteState = ''
-        })
+      this.$swal({
+        type: 'warning', 
+        title: 'Tem certeza?',
+        text: 'Tem certeza que deseja apagar essa notificação?',
+        showLoaderOnConfirm: true,
+        showCancelButton: true
+      }).then(() => {
+        this.$http.delete(`applications/${this.notification.application_id}/notifications/${this.notification.id}`)
+          .then((response) => {
+            this.$emit('delete');
+            this.$swal({type: 'success', title: 'Notificação deletada!', text: 'Notificação deletada com sucesso!'});
+          }, (err) => {
+            this.error = err.body.message
+          })
+      }, () => {})
     }
   }
 }

@@ -1,9 +1,6 @@
 import {router} from '../main.js'
-import configs from '../configs.js'
 
 // URL and endpoint constants
-const LOGIN_URL = configs.API_URL + 'access-token/'
-const SIGNUP_URL = configs.API_URL + 'users/'
 
 export default {
 
@@ -14,7 +11,7 @@ export default {
 
   // Send a request to the login URL and save the returned JWT
   login(context, creds, redirect) {
-    context.$http.post(LOGIN_URL, creds).then((response) => {
+    context.$http.post('access-token', creds).then((response) => {
       localStorage.setItem('access_token', response.body)
 
       this.user.authenticated = true
@@ -31,7 +28,7 @@ export default {
   },
 
   signup(context, creds, redirect) {
-    context.$http.post(SIGNUP_URL, creds, (data) => {
+    context.$http.post('users', creds, (data) => {
       localStorage.setItem('access_token', data.access_token)
 
       this.user.authenticated = true

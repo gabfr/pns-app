@@ -23,6 +23,7 @@
         <a class="nav-item" v-if="user.authenticated" @click="logout()">Logout</a>
       </div>
     </nav>
+    <nprogress-container></nprogress-container>
     <div class="content">
       <router-view></router-view>
     </div>
@@ -31,9 +32,11 @@
 
 <script>
 import auth from '../auth'
+import NprogressContainer from '../../node_modules/vue-nprogress/src/NprogressContainer.vue'
 
 export default {
   name: 'app',
+  components: {NprogressContainer},
   data () {
     return {
       user: auth.user
@@ -50,5 +53,7 @@ export default {
 
 <style lang="sass">
   @import '../../node_modules/bulma/bulma.sass';
-
+  .nprogress-container {
+    width: 100%; height: 30px;
+  }
 </style>

@@ -23,7 +23,7 @@ export default {
   },
 
   beforeRouteEnter(to, from, next) {
-    Vue.http.get(configs.API_URL + 'applications').then((response) => {
+    Vue.http.get('applications').then((response) => {
       console.log('Applications loaded: ', response);
       next(vm => vm.setData(null, response.body));
     }, (error) => {
