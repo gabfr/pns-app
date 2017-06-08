@@ -18,8 +18,8 @@
       <!-- This "nav-menu" is hidden on mobile -->
       <!-- Add the modifier "is-active" to display it on mobile -->
       <div class="nav-right nav-menu">
-        <router-link class="nav-item" to="/">Aplicativos</router-link>
-        <router-link class="nav-item" to="/users">Usuários</router-link>
+        <router-link class="nav-item" v-if="user.authenticated" to="/">Aplicativos</router-link>
+        <router-link class="nav-item" v-if="user.authenticated" to="/users">Usuários</router-link>
         <router-link class="nav-item" v-if="!user.authenticated" to="/login">Login</router-link>
         <a class="nav-item" v-if="user.authenticated" @click="logout()">Logout</a>
       </div>
@@ -44,9 +44,18 @@ export default {
     }
   },
 
+  beforeRouteEnter(from, to, next) {
+    next(vm =>  {
+      auth.checkAuth();
+      this.user = auth.user;
+      console.log('transitioning', vm)
+    });
+  },
+
   methods: {
     logout() {
       auth.logout()
+      window.location.reload();
     }
   }
 }

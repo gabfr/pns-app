@@ -14,6 +14,7 @@
 import auth from '../auth'
 import UserListItem from '../components/UserListItem.vue'
 import Vue from 'vue'
+import {router} from '../main.js'
 
 export default {
   components: { UserListItem },
@@ -33,17 +34,17 @@ export default {
   },
 
   methods: {
+    checkAccess() {
+      if (!auth.user.authenticated) {
+        router.push('/login')
+      }
+    },
     setData(err, users) {
+      this.checkAccess();
       if (err)
         this.error = err;
       else
         this.users = users;
-    }
-  },
-
-  route: {
-    canActivate() {
-      return auth.user.authenticated
     }
   }
 }

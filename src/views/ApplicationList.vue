@@ -12,6 +12,7 @@ import auth from '../auth'
 import configs from '../configs'
 import ApplicationListItem from '../components/ApplicationListItem.vue'
 import Vue from 'vue'
+import {router} from '../main.js'
 
 export default {
   components: { ApplicationListItem },
@@ -33,18 +34,18 @@ export default {
   },
 
   methods: {
+    checkAccess() {
+      if (!auth.user.authenticated) {
+        router.push('login')
+      }
+    },
     setData(err, applications) {
+      this.checkAccess();
       if (err)
         this.error = err;
       else
         this.applications = applications;
     }
   },
-
-  route: {
-    canActivate() {
-      return auth.user.authenticated
-    }
-  }
 }
 </script>
