@@ -1,7 +1,6 @@
 
 const configs = {
-	//API_URL: 'http://pns.api'
-	API_URL: 'https://api.push.paranaiba.contramestretech.com.br'
+	API_URL: 'http://pns.api'
 }
 
 export default configs;
