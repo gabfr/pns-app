@@ -14,6 +14,8 @@ import FormNewNotification from './views/FormNewNotification.vue'
 import UserList from './views/UserList.vue'
 import FormEditUser from './views/FormEditUser.vue'
 import FormNewUser from './views/FormNewUser.vue'
+import FakePageList from './views/FakePageList.vue'
+import FormFakePage from './views/FormFakePage.vue'
 //import Signup from './components/Signup.vue'
 import Login from './views/Login.vue'
 
@@ -42,6 +44,9 @@ const routes = [
 	{ path: '/users', component: UserList },
 	{ path: '/users/new', component: FormNewUser },
 	{ path: '/users/:userId', component: FormEditUser },
+	{ path: '/fake-pages', component: FakePageList },
+	{ path: '/fake-pages/new', component: FormFakePage },
+	{ path: '/fake-pages/:fakePageId', component: FormFakePage },
 	{ path: '/login', component: Login }
 ]
 

@@ -20,6 +20,7 @@
       <div class="nav-right nav-menu">
         <router-link class="nav-item" v-if="user.authenticated" to="/">Aplicativos</router-link>
         <router-link class="nav-item" v-if="user.authenticated" to="/users">Usuários</router-link>
+        <router-link class="nav-item" v-if="user.authenticated" to="/fake-pages">Fake pages</router-link>
         <router-link class="nav-item" v-if="!user.authenticated" to="/login">Login</router-link>
         <a class="nav-item" v-if="user.authenticated" @click="logout()">Logout</a>
       </div>
