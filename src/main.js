@@ -16,6 +16,8 @@ import FormEditUser from './views/FormEditUser.vue'
 import FormNewUser from './views/FormNewUser.vue'
 import FakePageList from './views/FakePageList.vue'
 import FormFakePage from './views/FormFakePage.vue'
+import CloudObjectList from './views/CloudObjectList.vue'
+import FormCloudObject from './views/FormCloudObject.vue'
 //import Signup from './components/Signup.vue'
 import Login from './views/Login.vue'
 
@@ -41,12 +43,19 @@ const routes = [
 	{ path: '/applications', component: ApplicationList },
 	{ path: '/applications/:applicationSlug/new-notification', component: FormNewNotification },
 	{ path: '/applications/:applicationSlug', component: ApplicationDashboard },
+
 	{ path: '/users', component: UserList },
 	{ path: '/users/new', component: FormNewUser },
 	{ path: '/users/:userId', component: FormEditUser },
+
 	{ path: '/fake-pages', component: FakePageList },
 	{ path: '/fake-pages/new', component: FormFakePage },
 	{ path: '/fake-pages/:fakePageId', component: FormFakePage },
+
+	{ path: '/cloud-objects', component: CloudObjectList },
+	{ path: '/cloud-objects/new', component: FormCloudObject },
+	{ path: '/cloud-objects/:cloudObjectId', component: FormCloudObject },
+
 	{ path: '/login', component: Login }
 ]
 
