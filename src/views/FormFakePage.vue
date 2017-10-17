@@ -18,6 +18,15 @@
       </div>
       <form action="" method='POST' @submit.prevent="onSubmit" @keydown="form.errors.clear($event.target.name)">
 
+        <form-control :model="form" label="Aplicativo" name="application_id">
+          <div class="select" :class="{'is-loading': isLoadingApplications}">
+            <select name="application_id" v-model="form.application_id" @change="form.errors.clear($event.target.name)">
+              <option value=""> -- Selecione um aplicativo -- </option>
+              <option v-for="application in applications.data" :value="application.id">{{application.name}}</option>
+            </select>
+          </div>
+        </form-control>
+
         <form-control :model="form" label="Nome" name="name">
           <input type="text" class="input" name="name" v-model="form.name" />
         </form-control>
@@ -56,7 +65,9 @@ export default {
     return {
       error: null,
       action: 'creating', // can be creating or editing
-      form: null
+      form: null,
+      applications: {data: []},
+      isLoadingApplications: false
     }
   },
 
@@ -83,8 +94,9 @@ export default {
         if (this.action == 'editing') {
           this.form = new Form(fakePage);
         } else {
-          this.form = new Form({name: '', content_url: '', is_active: ''});
+          this.form = new Form({name: '', content_url: '', is_active: '', application_id: ''});
         }
+        this.loadApplications();
       }
     },
 
@@ -105,6 +117,14 @@ export default {
           }
           console.log('The fake page id saved is: ', fakePageId);
         })
+    },
+
+    loadApplications() {
+      this.isLoadingApplications = true;
+      this.$http.get(`applications`).then(
+        (response) => {this.applications.data = response.data.data; this.isLoadingApplications = false;},
+        (err) => {this.error = err.data.data.message; this.isLoadingApplications = false;}
+      );
     }
   }
 }
