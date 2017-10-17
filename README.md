@@ -1,8 +1,10 @@
 # pns-app
 
-> A Vue.js project
+> Push Notification Service Web Application
 
 ## Build Setup
+
+**Before building for production, remember to change the API URL on the `src/configs.js` file**
 
 ``` bash
 # install dependencies
