@@ -1,7 +1,10 @@
 <template>
   <div class="card">
     <header class="card-header">
-      <p class="card-header-title">{{ fakePage.name }}</p>
+      <p class="card-header-title">
+        <span style="font-style:italic" v-if="fakePage.application">{{ fakePage.application.name }} - </span>
+        {{ fakePage.name }}
+      </p>
     </header>
     <div class="card-content">
       <div class="content">{{ fakePage.content_url }}</div>
